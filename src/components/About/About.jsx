@@ -1,7 +1,7 @@
 import React from 'react';
 import './About.css';
 
-// O caminho volta duas pastas (../../) para sair de components/About e achar a pasta assets
+// Importando as imagens
 import leticia1 from '../../assets/imagens/leticia1.png';
 import leticia2 from '../../assets/imagens/leticia2.png';
 
@@ -11,10 +11,9 @@ export default function About() {
       <h2>Sobre Mim</h2>
       <div className="about-content">
         
-        {/* MÁSCARA: Este contêiner fará o recorte e a sombra */}
+        {/* Contêiner da foto */}
         <div className="profile-img-wrapper">
           <picture>
-            {/* Usando as variáveis importadas em vez dos caminhos de texto */}
             <source media="(max-width: 768px)" srcSet={leticia2} />
             <img 
               src={leticia1} 
@@ -24,6 +23,7 @@ export default function About() {
           </picture>
         </div>
         
+        {/* Texto */}
         <div className="about-text">
           <p>
             Sou Personal Organizer atuante em projetos de organização residencial com experiência prática em pré-mudança, pós mudança e reorganização de ambientes já habitados.
