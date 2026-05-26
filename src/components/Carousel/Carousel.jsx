@@ -17,17 +17,25 @@ export default function Carousel() {
     <div className="carousel-container">
       <motion.div 
         className="carousel-track"
-        animate={{ x: ["0%", "-50%"] }} // Move de 0 a -50% (loop infinito)
+        // Move de 0% a -50%. -50% é exatamente quando a primeira lista acaba e a cópia começa.
+        animate={{ x: ["0%", "-50%"] }} 
         transition={{ 
           ease: "linear", 
-          duration: 7, // Tempo do ciclo (aumente para ser mais lento)
-          repeat: Infinity 
+          duration: 7, // Velocidade que você escolheu
+          repeat: Infinity // Loop infinito
         }}
       >
-        {/* Duplicamos o array para criar o efeito de loop infinito */}
-        {[...images, ...images].map((src, index) => (
-          <div className="carousel-item" key={index}>
-            <img src={src} alt={`Case ${index}`} />
+        {/* CHAVE PARA O LOOP INFINITO: Duplicamos o conjunto de imagens */}
+        {/* Renderizamos o conjunto original... */}
+        {images.map((src, index) => (
+          <div className="carousel-item" key={`orig-${index}`}>
+            <img src={src} alt={`Case Original ${index + 1}`} />
+          </div>
+        ))}
+        {/* ... e imediatamente renderizamos uma cópia exata logo em seguida. */}
+        {images.map((src, index) => (
+          <div className="carousel-item" key={`copy-${index}`}>
+            <img src={src} alt={`Case Cópia ${index + 1}`} />
           </div>
         ))}
       </motion.div>
