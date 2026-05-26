@@ -19,37 +19,38 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="navbar">
-      <div className="navbar-container">
-        
-        {/* Logo agora é apenas uma imagem estática (sem link) */}
-        <div className="navbar-logo-wrapper">
-          <img src={logoIcon} alt="Let's Organize" className="navbar-icon" />
-        </div>
+    <>
+      <nav className="navbar">
+        <div className="navbar-container">
+          
+          <div className="navbar-logo-wrapper">
+            <img src={logoIcon} alt="Let's Organize" className="navbar-icon" />
+          </div>
 
-        {/* Ícone do Menu Hambúrguer (Mobile) */}
-        <div className={`menu-icon ${isOpen ? 'open' : ''}`} onClick={toggleMenu}>
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
+          <div className={`menu-icon ${isOpen ? 'open' : ''}`} onClick={toggleMenu}>
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
 
-        {/* Links de Navegação */}
-        <ul className={`nav-menu ${isOpen ? 'active' : ''}`}>
-          <li className="nav-item">
-            <a href="#sobre" className="nav-links" onClick={(e) => scrollToSection(e, 'sobre')}>Sobre Mim</a>
-          </li>
-          <li className="nav-item">
-            <a href="#projetos" className="nav-links" onClick={(e) => scrollToSection(e, 'projetos')}>Projetos</a>
-          </li>
-          <li className="nav-item">
-            <a href="#servicos" className="nav-links" onClick={(e) => scrollToSection(e, 'servicos')}>Serviços</a>
-          </li>
-          <li className="nav-item">
-            <a href="#contato" className="nav-links" onClick={(e) => scrollToSection(e, 'contato')}>Contato</a>
-          </li>
-        </ul>
-      </div>
-    </nav>
+          <ul className={`nav-menu ${isOpen ? 'active' : ''}`}>
+            <li className="nav-item">
+              <a href="#sobre" className="nav-links" onClick={(e) => scrollToSection(e, 'sobre')}>Sobre Mim</a>
+            </li>
+            <li className="nav-item">
+              <a href="#projetos" className="nav-links" onClick={(e) => scrollToSection(e, 'projetos')}>Projetos</a>
+            </li>
+            <li className="nav-item">
+              <a href="#servicos" className="nav-links" onClick={(e) => scrollToSection(e, 'servicos')}>Serviços</a>
+            </li>
+            <li className="nav-item">
+              <a href="#contato" className="nav-links" onClick={(e) => scrollToSection(e, 'contato')}>Contato</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+      {/* Espaçador para impedir que o conteúdo suba e fique atrás da barra fixa */}
+      <div className="navbar-spacer"></div>
+    </>
   );
 }

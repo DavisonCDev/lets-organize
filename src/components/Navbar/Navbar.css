@@ -7,10 +7,21 @@
   justify-content: center;
   align-items: center;
   font-size: 1.1rem;
-  position: sticky;
+  
+  /* Alterado para fixed para nunca sumir */
+  position: fixed;
   top: 0;
+  left: 0;
+  width: 100%;
+  
   z-index: 999;
   box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+}
+
+/* Espaçador com a exata altura da navbar (70px) */
+.navbar-spacer {
+  height: 70px;
+  width: 100%;
 }
 
 .navbar-container {
@@ -18,19 +29,18 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  max-width: 1300px; /* Aumentado para empurrar os elementos mais para as extremidades */
-  padding: 0 40px; /* Mais espaçamento lateral para dar o respiro correto nas pontas */
+  max-width: 1300px; 
+  padding: 0 40px; 
 }
 
-.navbar-logo-link {
+.navbar-logo-wrapper {
   display: flex;
   align-items: center;
-  cursor: pointer;
+  cursor: default; 
 }
 
-/* Estilo do novo ícone de logo */
 .navbar-icon {
-  height: 42px; /* Altura ideal para não estourar a barra de 70px */
+  height: 42px; 
   width: auto;
   display: block;
 }
@@ -44,7 +54,7 @@
 }
 
 .nav-item {
-  margin-left: 15px; /* Espaço elegante entre os links */
+  margin-left: 15px; 
 }
 
 .nav-links {
@@ -61,7 +71,6 @@
   background-color: rgba(181, 163, 151, 0.15);
 }
 
-/* Esconde o menu de hambúrguer no computador */
 .menu-icon {
   display: none;
   cursor: pointer;
@@ -86,14 +95,13 @@
    ========================================= */
 @media screen and (max-width: 768px) {
   .navbar-container {
-    padding: 0 20px; /* Retorna ao recuo normal em telas de celulares */
+    padding: 0 20px; 
   }
 
   .menu-icon {
     display: flex;
   }
 
-  /* Transforma o hambúrguer em um "X" animado */
   .menu-icon.open span:nth-child(1) {
     transform: translateY(8.5px) rotate(45deg);
   }
@@ -113,7 +121,7 @@
     top: 0;
     left: -100%;
     opacity: 1;
-    transition: all 0.5s ease;
+    transition: left 0.5s ease;
     background-color: var(--bg-color, #FAF6F0);
     justify-content: center;
     align-items: center;
