@@ -1,6 +1,6 @@
 .footer {
   text-align: center;
-  padding: 40px 20px;
+  padding: 40px 20px; /* Voltei o padding original para a caixa ficar simétrica */
   background-color: rgba(181, 163, 151, 0.85);
   
   /* Compatibilidade para celulares da Apple */
@@ -57,13 +57,27 @@
 }
 
 /* =========================================
+   ASSINATURA DE DESENVOLVIMENTO (Agora do lado de fora)
+   ========================================= */
+.developer-credit {
+  text-align: center;
+  font-size: 0.85rem;
+  opacity: 0.6; /* Deixa o texto sutil */
+  letter-spacing: 0.5px;
+  padding: 10px 0 30px 0; /* Espaço em cima e um respiro bom embaixo */
+  color: var(--text-primary, #4a4a4a); /* Cor escura para contrastar com o fundo claro da página */
+  position: relative;
+  z-index: 10;
+}
+
+/* =========================================
    RESPONSIVIDADE (Ajustes para Mobile)
    ========================================= */
 @media (max-width: 768px) {
   .footer {
     padding: 35px 15px;
     width: 95%;
-    margin-bottom: 40px;
+    margin-bottom: 20px; /* Margem menor embaixo para a assinatura ficar mais próxima da caixa */
   }
 
   .footer h2 {
