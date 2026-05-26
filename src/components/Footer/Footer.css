@@ -52,9 +52,9 @@
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Cor do texto aplicada como marrom escuro elegante */
+/* Cor do texto aplicada como bege claro (a cor anterior) */
 .whatsapp-btn, .instagram-btn {
-  color: #7f5f44 !important;
+  color: #FAF6F0 !important;
 }
 
 /* Cores de fundo (Pastéis) */
