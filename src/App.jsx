@@ -6,13 +6,30 @@ import Services from './components/Services/Services';
 import Footer from './components/Footer/Footer';
 import ProjectCard from './components/ProjectCard/ProjectCard';
 
+// 1. Importando todas as imagens da pasta assets
+import flores1 from './assets/imagens/flores1.png';
+import flores2 from './assets/imagens/flores2.png';
+import flores3 from './assets/imagens/flores3.png';
+
+import baby1 from './assets/imagens/baby1.png';
+import baby2 from './assets/imagens/baby2.png';
+import baby3 from './assets/imagens/baby3.png';
+
+import closet1 from './assets/imagens/closet1.png';
+import closet2 from './assets/imagens/closet2.png';
+import closet3 from './assets/imagens/closet3.png';
+
+import cozinha1 from './assets/imagens/cozinha1.png';
+import cozinha2 from './assets/imagens/cozinha2.png';
+
 function App() {
   return (
     <div className="app-wrapper">
       {/* FLORES (Decoração de fundo) */}
-      <img src="/imagens/flores1.png" alt="" className="flower-decor flower-1" aria-hidden="true" />
-      <img src="/imagens/flores2.png" alt="" className="flower-decor flower-2" aria-hidden="true" />
-      <img src="/imagens/flores3.png" alt="" className="flower-decor flower-3" aria-hidden="true" />
+      {/* 2. Usando as variáveis importadas sem aspas */}
+      <img src={flores1} alt="" className="flower-decor flower-1" aria-hidden="true" />
+      <img src={flores2} alt="" className="flower-decor flower-2" aria-hidden="true" />
+      <img src={flores3} alt="" className="flower-decor flower-3" aria-hidden="true" />
 
       <div className="container">
         
@@ -29,9 +46,9 @@ function App() {
         <section className="section section-box anim-delay-3">
           <h2>Organização Baby</h2>
           <div className="projects-grid">
-            <ProjectCard image="/imagens/baby1.png" title="Ambiente de Troca" layoutClass="vertical" />
-            <ProjectCard image="/imagens/baby3.png" title="Organização de Gavetas" layoutClass="horizontal" />
-            <ProjectCard image="/imagens/baby2.png" title="Enxoval e Detalhes" layoutClass="vertical" />
+            <ProjectCard image={baby1} title="Ambiente de Troca" layoutClass="vertical" />
+            <ProjectCard image={baby3} title="Organização de Gavetas" layoutClass="horizontal" />
+            <ProjectCard image={baby2} title="Enxoval e Detalhes" layoutClass="vertical" />
           </div>
         </section>
 
@@ -39,9 +56,9 @@ function App() {
         <section className="section section-box anim-delay-4">
           <h2>Organização de Closet</h2>
           <div className="projects-grid">
-            <ProjectCard image="/imagens/closet1.png" title="Visão Geral" layoutClass="vertical" />
-            <ProjectCard image="/imagens/closet3.png" title="Gavetas e Acessórios" layoutClass="horizontal" />
-            <ProjectCard image="/imagens/closet2.png" title="Prateleiras" layoutClass="vertical" />
+            <ProjectCard image={closet1} title="Visão Geral" layoutClass="vertical" />
+            <ProjectCard image={closet3} title="Gavetas e Acessórios" layoutClass="horizontal" />
+            <ProjectCard image={closet2} title="Prateleiras" layoutClass="vertical" />
           </div>
         </section>
 
@@ -49,8 +66,8 @@ function App() {
         <section className="section section-box anim-delay-5">
           <h2>Organização de Cozinha</h2>
           <div className="projects-grid kitchen-grid">
-            <ProjectCard image="/imagens/cozinha1.png" title="Louças" layoutClass="vertical" />
-            <ProjectCard image="/imagens/cozinha2.png" title="Armários e Utensílios" layoutClass="vertical" />
+            <ProjectCard image={cozinha1} title="Louças" layoutClass="vertical" />
+            <ProjectCard image={cozinha2} title="Armários e Utensílios" layoutClass="vertical" />
           </div>
         </section>
 

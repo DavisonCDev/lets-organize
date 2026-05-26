@@ -1,6 +1,10 @@
 import React from 'react';
 import './About.css';
 
+// O caminho volta duas pastas (../../) para sair de components/About e achar a pasta assets
+import leticia1 from '../../assets/imagens/leticia1.png';
+import leticia2 from '../../assets/imagens/leticia2.png';
+
 export default function About() {
   return (
     <section className="section section-box">
@@ -10,9 +14,10 @@ export default function About() {
         {/* MÁSCARA: Este contêiner fará o recorte e a sombra */}
         <div className="profile-img-wrapper">
           <picture>
-            <source media="(max-width: 768px)" srcSet="/imagens/leticia2.png" />
+            {/* Usando as variáveis importadas em vez dos caminhos de texto */}
+            <source media="(max-width: 768px)" srcSet={leticia2} />
             <img 
-              src="/imagens/leticia1.png" 
+              src={leticia1} 
               alt="Letícia Machado" 
               className="profile-img" 
             />
