@@ -2,8 +2,8 @@ import React from 'react';
 import './About.css';
 
 // Importando as imagens
-import leticia1 from '../../assets/imagens/leticia1.png';
-import leticia2 from '../../assets/imagens/leticia2.png';
+import leticia1 from '../../assets/imagens/leticia1.jpg';
+import leticia2 from '../../assets/imagens/leticia2.jpg';
 
 export default function About() {
   return (

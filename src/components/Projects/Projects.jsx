@@ -3,16 +3,16 @@ import './Projects.css';
 import ProjectCard from '../ProjectCard/ProjectCard';
 
 // Importando as imagens específicas dos projetos
-import baby1 from '../../assets/imagens/baby1.png';
-import baby2 from '../../assets/imagens/baby2.png';
-import baby3 from '../../assets/imagens/baby3.png';
+import baby1 from '../../assets/imagens/baby1.jpg';
+import baby2 from '../../assets/imagens/baby2.jpg';
+import baby3 from '../../assets/imagens/baby3.jpg';
 
-import closet1 from '../../assets/imagens/closet1.png';
-import closet2 from '../../assets/imagens/closet2.png';
-import closet3 from '../../assets/imagens/closet3.png';
+import closet1 from '../../assets/imagens/closet1.jpg';
+import closet2 from '../../assets/imagens/closet2.jpg';
+import closet3 from '../../assets/imagens/closet3.jpg';
 
-import cozinha1 from '../../assets/imagens/cozinha1.png';
-import cozinha2 from '../../assets/imagens/cozinha2.png';
+import cozinha1 from '../../assets/imagens/cozinha1.jpg';
+import cozinha2 from '../../assets/imagens/cozinha2.jpg';
 
 export default function Projects() {
   return (

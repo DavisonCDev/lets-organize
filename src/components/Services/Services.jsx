@@ -2,7 +2,7 @@ import React from 'react';
 import './Services.css';
 
 // Importando a imagem e voltando duas pastas para acessar assets
-import itens1 from '../../assets/imagens/itens1.png';
+import itens1 from '../../assets/imagens/itens1.jpg';
 
 export default function Services() {
   return (
