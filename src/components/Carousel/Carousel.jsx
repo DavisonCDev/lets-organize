@@ -20,7 +20,7 @@ export default function Carousel() {
         animate={{ x: ["0%", "-50%"] }} // Move de 0 a -50% (loop infinito)
         transition={{ 
           ease: "linear", 
-          duration: 30, // Tempo do ciclo (aumente para ser mais lento)
+          duration: 15, // Tempo do ciclo (aumente para ser mais lento)
           repeat: Infinity 
         }}
       >
