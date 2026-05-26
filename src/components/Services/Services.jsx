@@ -1,6 +1,9 @@
 import React from 'react';
 import './Services.css';
 
+// Importando a imagem e voltando duas pastas para acessar assets
+import itens1 from '../../assets/imagens/itens1.png';
+
 export default function Services() {
   return (
     <section className="section section-box services">
@@ -14,7 +17,7 @@ export default function Services() {
             <li>Closets, cozinhas e áreas gerais</li>
           </ul>
         </div>
-        <img src="/imagens/itens1.png" alt="Organização em Prática" className="services-img" />
+        <img src={itens1} alt="Organização em Prática" className="services-img" />
       </div>
     </section>
   );

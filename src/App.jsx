@@ -11,6 +11,9 @@ import flores1 from './assets/imagens/flores1.png';
 import flores2 from './assets/imagens/flores2.png';
 import flores3 from './assets/imagens/flores3.png';
 
+// Importando a nova imagem de fitas
+import fitas1 from './assets/imagens/fitas1.png';
+
 import baby1 from './assets/imagens/baby1.png';
 import baby2 from './assets/imagens/baby2.png';
 import baby3 from './assets/imagens/baby3.png';
@@ -26,10 +29,14 @@ function App() {
   return (
     <div className="app-wrapper">
       {/* FLORES (Decoração de fundo) */}
-      {/* 2. Usando as variáveis importadas sem aspas */}
       <img src={flores1} alt="" className="flower-decor flower-1" aria-hidden="true" />
       <img src={flores2} alt="" className="flower-decor flower-2" aria-hidden="true" />
       <img src={flores3} alt="" className="flower-decor flower-3" aria-hidden="true" />
+
+      {/* FITAS (Divisórias de fundo bem apagadas) */}
+      <img src={fitas1} alt="" className="ribbon-decor ribbon-1" aria-hidden="true" />
+      <img src={fitas1} alt="" className="ribbon-decor ribbon-2" aria-hidden="true" />
+      <img src={fitas1} alt="" className="ribbon-decor ribbon-3" aria-hidden="true" />
 
       <div className="container">
         

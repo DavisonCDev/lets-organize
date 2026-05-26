@@ -7,7 +7,9 @@
 }
 
 .logo {
-  width: 220px;
+  width: 320px; /* Aumento de 220px para 320px. Você pode testar 350px ou 400px se quiser ainda maior! */
+  max-width: 100%; /* Garante que o logo não ultrapasse a largura da tela no celular */
+  height: auto; /* Mantém a proporção da imagem correta para não esticar */
   display: block;
   margin: 0 auto 20px;
 }
