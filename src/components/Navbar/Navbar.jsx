@@ -22,7 +22,6 @@ export default function Navbar() {
     <>
       <nav className="navbar">
         <div className="navbar-container">
-          
           <div className="navbar-logo-wrapper">
             <img src={logoIcon} alt="Let's Organize" className="navbar-icon" />
           </div>
@@ -41,6 +40,9 @@ export default function Navbar() {
               <a href="#projetos" className="nav-links" onClick={(e) => scrollToSection(e, 'projetos')}>Projetos</a>
             </li>
             <li className="nav-item">
+              <a href="#cases" className="nav-links" onClick={(e) => scrollToSection(e, 'cases')}>Cases</a>
+            </li>
+            <li className="nav-item">
               <a href="#servicos" className="nav-links" onClick={(e) => scrollToSection(e, 'servicos')}>Serviços</a>
             </li>
             <li className="nav-item">
@@ -49,7 +51,6 @@ export default function Navbar() {
           </ul>
         </div>
       </nav>
-      {/* Espaçador para impedir que o conteúdo suba e fique atrás da barra fixa */}
       <div className="navbar-spacer"></div>
     </>
   );
