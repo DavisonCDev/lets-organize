@@ -1,28 +1,23 @@
-.header h1 {
-  font-size: 4.2rem;
-  margin-bottom: 10px;
-  font-family: 'Alex Brush', cursive !important;
-  color: var(--title-color) !important;
-  font-weight: normal;
+.header {
+  text-align: center;
 }
 
 .logo {
-  width: 320px; /* Aumento de 220px para 320px. Você pode testar 350px ou 400px se quiser ainda maior! */
-  max-width: 100%; /* Garante que o logo não ultrapasse a largura da tela no celular */
-  height: auto; /* Mantém a proporção da imagem correta para não esticar */
-  display: block;
-  margin: 0 auto 20px;
-}
+  width: 320px;
+  max-width: 100%;
 
-.subtitle, .slogan {
-  text-align: center;
+  margin: 0 auto 20px;
 }
 
 .subtitle {
   font-size: 1.2rem;
   font-weight: 600;
+
+  margin-bottom: 10px;
 }
 
 .slogan {
   opacity: 0.8;
+
+  font-size: 1.05rem;
 }

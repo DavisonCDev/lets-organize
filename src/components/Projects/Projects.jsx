@@ -1,8 +1,10 @@
-import React from 'react';
-import './Projects.css';
-import ProjectCard from '../ProjectCard/ProjectCard';
+import { useState } from 'react';
 
-// Importando as imagens específicas dos projetos
+import './Projects.css';
+
+import ProjectCard from '../ProjectCard/ProjectCard';
+import Modal from '../Modal/Modal';
+
 import baby1 from '../../assets/imagens/baby1.jpg';
 import baby2 from '../../assets/imagens/baby2.jpg';
 import baby3 from '../../assets/imagens/baby3.jpg';
@@ -15,36 +17,88 @@ import cozinha1 from '../../assets/imagens/cozinha1.jpg';
 import cozinha2 from '../../assets/imagens/cozinha2.jpg';
 
 export default function Projects() {
+  const [selectedImg, setSelectedImg] = useState(null);
+
   return (
     <>
-      {/* ORGANIZAÇÃO BABY */}
-      <section className="section section-box anim-delay-3">
+      <section className="section section-box">
         <h2>Organização Baby</h2>
+
         <div className="projects-grid">
-          <ProjectCard image={baby1} title="Ambiente de Troca" layoutClass="vertical" />
-          <ProjectCard image={baby3} title="Organização de Gavetas" layoutClass="horizontal" />
-          <ProjectCard image={baby2} title="Enxoval e Detalhes" layoutClass="vertical" />
+          <ProjectCard
+            image={baby1}
+            title="Ambiente de Troca"
+            layoutClass="vertical"
+            onClick={() => setSelectedImg(baby1)}
+          />
+
+          <ProjectCard
+            image={baby3}
+            title="Organização de Gavetas"
+            layoutClass="horizontal"
+            onClick={() => setSelectedImg(baby3)}
+          />
+
+          <ProjectCard
+            image={baby2}
+            title="Enxoval e Detalhes"
+            layoutClass="vertical"
+            onClick={() => setSelectedImg(baby2)}
+          />
         </div>
       </section>
 
-      {/* ORGANIZAÇÃO DE CLOSET */}
-      <section className="section section-box anim-delay-4">
+      <section className="section section-box">
         <h2>Organização de Closet</h2>
+
         <div className="projects-grid">
-          <ProjectCard image={closet1} title="Visão Geral" layoutClass="vertical" />
-          <ProjectCard image={closet3} title="Gavetas e Acessórios" layoutClass="horizontal" />
-          <ProjectCard image={closet2} title="Prateleiras" layoutClass="vertical" />
+          <ProjectCard
+            image={closet1}
+            title="Visão Geral"
+            layoutClass="vertical"
+            onClick={() => setSelectedImg(closet1)}
+          />
+
+          <ProjectCard
+            image={closet3}
+            title="Gavetas e Acessórios"
+            layoutClass="horizontal"
+            onClick={() => setSelectedImg(closet3)}
+          />
+
+          <ProjectCard
+            image={closet2}
+            title="Prateleiras"
+            layoutClass="vertical"
+            onClick={() => setSelectedImg(closet2)}
+          />
         </div>
       </section>
 
-      {/* ORGANIZAÇÃO DE COZINHA */}
-      <section className="section section-box anim-delay-5">
+      <section className="section section-box">
         <h2>Organização de Cozinha</h2>
+
         <div className="projects-grid kitchen-grid">
-          <ProjectCard image={cozinha1} title="Louças" layoutClass="vertical" />
-          <ProjectCard image={cozinha2} title="Armários e Utensílios" layoutClass="vertical" />
+          <ProjectCard
+            image={cozinha1}
+            title="Louças"
+            layoutClass="vertical"
+            onClick={() => setSelectedImg(cozinha1)}
+          />
+
+          <ProjectCard
+            image={cozinha2}
+            title="Armários e Utensílios"
+            layoutClass="vertical"
+            onClick={() => setSelectedImg(cozinha2)}
+          />
         </div>
       </section>
+
+      <Modal
+        image={selectedImg}
+        onClose={() => setSelectedImg(null)}
+      />
     </>
   );
 }
