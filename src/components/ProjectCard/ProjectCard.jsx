@@ -1,25 +1,23 @@
 import './ProjectCard.css';
 
-export default function ProjectCard({
-  image,
-  title,
-  layoutClass,
-  onClick,
-}) {
+export default function ProjectCard({ image, title, layoutClass, onClick }) {
   return (
     <button
       className={`project-card ${layoutClass}`}
       onClick={onClick}
       type="button"
     >
-      <img
-        src={image}
-        alt={title}
-        className="project-img"
-        loading="lazy"
-      />
+      <div className="project-media">
+        <img
+          src={image}
+          alt={title}
+          className="project-img"
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
 
-      <h3>{title}</h3>
+      <h3 className="project-title">{title}</h3>
     </button>
   );
 }

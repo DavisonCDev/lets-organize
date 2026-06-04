@@ -17,7 +17,7 @@ export default function Header() {
       </p>
 
       <p className="slogan">
-        Organização que simplifica o dia a dia
+        Organização personalizada: transformamos ambientes em espaços leves, funcionais e acolhedores
       </p>
     </header>
   );

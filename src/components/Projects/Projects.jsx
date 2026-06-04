@@ -1,104 +1,102 @@
-import { useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 
 import './Projects.css';
 
-import ProjectCard from '../ProjectCard/ProjectCard';
+import MediaGrid from '../MediaGrid/MediaGrid';
 import Modal from '../Modal/Modal';
 
-import baby1 from '../../assets/imagens/baby1.jpg';
-import baby2 from '../../assets/imagens/baby2.jpg';
-import baby3 from '../../assets/imagens/baby3.jpg';
+import { getPortfolioSections } from '../../lib/mediaCatalog';
 
-import closet1 from '../../assets/imagens/closet1.jpg';
-import closet2 from '../../assets/imagens/closet2.jpg';
-import closet3 from '../../assets/imagens/closet3.jpg';
-
-import cozinha1 from '../../assets/imagens/cozinha1.jpg';
-import cozinha2 from '../../assets/imagens/cozinha2.jpg';
+function Section({ title, items, onSelect }) {
+  return (
+    <section className="section section-box portfolio-section">
+      <h2>{title}</h2>
+      <MediaGrid items={items} onSelect={onSelect} />
+    </section>
+  );
+}
 
 export default function Projects() {
-  const [selectedImg, setSelectedImg] = useState(null);
+  const allSections = useMemo(() => getPortfolioSections(), []);
+
+  // REMOVE Bastidores do portfólio (vai ficar só em "Cases")
+  const sections = useMemo(
+    () => allSections.filter((s) => s.key !== 'bastidores'),
+    [allSections]
+  );
+
+  const sectionMap = useMemo(() => {
+    const map = new Map();
+    sections.forEach((s) => map.set(s.key, s));
+    return map;
+  }, [sections]);
+
+  const [selectedMedia, setSelectedMedia] = useState(null);
+
+  const handleClose = useCallback(() => {
+    setSelectedMedia(null);
+  }, []);
+
+  // Pares lado a lado
+  const lavanderia = sectionMap.get('lavanderia');
+  const rouparia = sectionMap.get('rouparia');
+  const uniformes = sectionMap.get('uniformes');
+  const acessorios = sectionMap.get('acessorios');
+
+  // Renderizar o restante sem repetir os pares
+  const skippedKeys = new Set(['lavanderia', 'rouparia', 'uniformes', 'acessorios']);
+  const remaining = sections.filter((s) => !skippedKeys.has(s.key));
 
   return (
     <>
-      <section className="section section-box">
-        <h2>Organização Baby</h2>
+      {remaining.map((section) => (
+        <Section
+          key={section.key}
+          title={section.title}
+          items={section.items}
+          onSelect={setSelectedMedia}
+        />
+      ))}
 
-        <div className="projects-grid">
-          <ProjectCard
-            image={baby1}
-            title="Ambiente de Troca"
-            layoutClass="vertical"
-            onClick={() => setSelectedImg(baby1)}
-          />
-
-          <ProjectCard
-            image={baby3}
-            title="Organização de Gavetas"
-            layoutClass="horizontal"
-            onClick={() => setSelectedImg(baby3)}
-          />
-
-          <ProjectCard
-            image={baby2}
-            title="Enxoval e Detalhes"
-            layoutClass="vertical"
-            onClick={() => setSelectedImg(baby2)}
-          />
+      {(lavanderia || rouparia) && (
+        <div className="portfolio-two-col">
+          {lavanderia && (
+            <Section
+              title={lavanderia.title}
+              items={lavanderia.items}
+              onSelect={setSelectedMedia}
+            />
+          )}
+          {rouparia && (
+            <Section
+              title={rouparia.title}
+              items={rouparia.items}
+              onSelect={setSelectedMedia}
+            />
+          )}
         </div>
-      </section>
+      )}
 
-      <section className="section section-box">
-        <h2>Organização de Closet</h2>
-
-        <div className="projects-grid">
-          <ProjectCard
-            image={closet1}
-            title="Visão Geral"
-            layoutClass="vertical"
-            onClick={() => setSelectedImg(closet1)}
-          />
-
-          <ProjectCard
-            image={closet3}
-            title="Gavetas e Acessórios"
-            layoutClass="horizontal"
-            onClick={() => setSelectedImg(closet3)}
-          />
-
-          <ProjectCard
-            image={closet2}
-            title="Prateleiras"
-            layoutClass="vertical"
-            onClick={() => setSelectedImg(closet2)}
-          />
+      {(uniformes || acessorios) && (
+        <div className="portfolio-two-col">
+          {uniformes && (
+            <Section
+              title={uniformes.title}
+              items={uniformes.items}
+              onSelect={setSelectedMedia}
+            />
+          )}
+          {acessorios && (
+            <Section
+              title={acessorios.title}
+              items={acessorios.items}
+              onSelect={setSelectedMedia}
+            />
+          )}
         </div>
-      </section>
+      )}
 
-      <section className="section section-box">
-        <h2>Organização de Cozinha</h2>
-
-        <div className="projects-grid kitchen-grid">
-          <ProjectCard
-            image={cozinha1}
-            title="Louças"
-            layoutClass="vertical"
-            onClick={() => setSelectedImg(cozinha1)}
-          />
-
-          <ProjectCard
-            image={cozinha2}
-            title="Armários e Utensílios"
-            layoutClass="vertical"
-            onClick={() => setSelectedImg(cozinha2)}
-          />
-        </div>
-      </section>
-
-      <Modal
-        image={selectedImg}
-        onClose={() => setSelectedImg(null)}
-      />
+      <Modal media={selectedMedia} onClose={handleClose} />
     </>
   );
 }

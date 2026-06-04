@@ -1,0 +1,99 @@
+/* PADRÃO: tamanho bom + centraliza quando houver poucos itens */
+.media-grid {
+  display: grid;
+
+  /* cria apenas as colunas necessárias e com largura controlada */
+  grid-template-columns: repeat(auto-fit, minmax(220px, 280px));
+
+  gap: 18px;
+
+  /* CENTRALIZA o conjunto de cards abaixo do título */
+  justify-content: center;
+
+  margin: 0 auto;
+}
+
+.media-card {
+  border: none;
+  padding: 0;
+  cursor: pointer;
+
+  border-radius: 18px;
+  overflow: hidden;
+
+  background-color: rgba(250, 246, 240, 0.65);
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+
+  width: 100%;
+}
+
+.media-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.08);
+}
+
+.media-card:focus-visible {
+  outline: 2px solid var(--title-color);
+  outline-offset: 6px;
+}
+
+.media-thumb {
+  position: relative;
+  width: 100%;
+
+  aspect-ratio: 4 / 5;
+
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.media-el {
+  width: 100%;
+  height: 100%;
+  display: block;
+
+  object-fit: cover;
+  object-position: center;
+}
+
+.media-play-badge {
+  position: absolute;
+  inset: 0;
+
+  display: grid;
+  place-items: center;
+
+  font-size: 2.6rem;
+  color: white;
+
+  text-shadow: 0 10px 20px rgba(0, 0, 0, 0.6);
+}
+
+.media-caption {
+  padding: 12px 14px;
+  background: rgba(255, 255, 255, 0.92);
+
+  text-align: center;
+  font-weight: 600;
+  color: var(--title-color);
+
+  font-size: 0.95rem;
+}
+
+/* Somente Bastidores: menor e discreto */
+.media-grid--small {
+  grid-template-columns: repeat(auto-fit, minmax(140px, 180px));
+  justify-content: center;
+  gap: 14px;
+}
+
+.media-grid--small .media-thumb {
+  aspect-ratio: 1 / 1;
+}
+
+.media-grid--small .media-caption {
+  font-size: 0.85rem;
+  padding: 8px 10px;
+}

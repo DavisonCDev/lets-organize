@@ -1,112 +1,187 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import { motion } from 'framer-motion';
 
 import './Carousel.css';
 
 import Modal from '../Modal/Modal';
+import MediaGrid from '../MediaGrid/MediaGrid';
 
-import poscloset1 from '../../assets/imagens/poscloset1.jpg';
-import poscloset2 from '../../assets/imagens/poscloset2.jpg';
-import poscloset3 from '../../assets/imagens/poscloset3.jpg';
-import poscloset4 from '../../assets/imagens/poscloset4.jpg';
-import poscloset5 from '../../assets/imagens/poscloset5.jpg';
-import poscloset6 from '../../assets/imagens/poscloset6.jpg';
+import { getBastidoresMedia, getCasesMedia } from '../../lib/mediaCatalog';
 
-const images = [poscloset1, poscloset2, poscloset3, poscloset4, poscloset5, poscloset6];
+function getCssNumberVar(name, fallback) {
+  const raw = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+  const num = Number.parseFloat(raw.replace('px', ''));
+
+  return Number.isFinite(num) ? num : fallback;
+}
+
+function pickPosCloset1to6(photos) {
+  const byBase = new Map(photos.map((p) => [String(p.base).toLowerCase(), p]));
+
+  const result = [];
+  for (let i = 1; i <= 6; i += 1) {
+    const key = `poscloset${i}`;
+    const item = byBase.get(key);
+    if (item) result.push(item);
+  }
+
+  return result;
+}
 
 export default function Carousel() {
-  const [selectedImg, setSelectedImg] = useState(null);
+  const { photos, videos } = useMemo(() => getCasesMedia(), []);
+  const bastidoresItems = useMemo(() => getBastidoresMedia(), []);
 
-  const [currentIndex, setCurrentIndex] = useState(0);
+  // GARANTE: exatamente poscloset1..poscloset6, na ordem
+  const carouselPhotos = useMemo(() => pickPosCloset1to6(photos), [photos]);
+
+  const [selectedMedia, setSelectedMedia] = useState(null);
 
   const [itemsPerPage, setItemsPerPage] = useState(3);
+  const [stepPx, setStepPx] = useState(278); // fallback (260 + 18)
+
+  // Loop infinito real (com clones)
+  const [index, setIndex] = useState(0);
+  const [instant, setInstant] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
-      setItemsPerPage(window.innerWidth <= 768 ? 1 : 3);
+      const perPage = window.innerWidth <= 768 ? 1 : 3;
+      setItemsPerPage(perPage);
+
+      const w = getCssNumberVar('--case-item-width', 260);
+      const g = getCssNumberVar('--case-gap', 18);
+      setStepPx(w + g);
     };
 
     window.addEventListener('resize', handleResize);
-
     handleResize();
 
-    return () => {
-      window.removeEventListener(
-        'resize',
-        handleResize
-      );
-    };
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const nextSlide = () => {
-    setCurrentIndex((prev) =>
-      prev >= images.length - itemsPerPage
-        ? 0
-        : prev + 1
-    );
+  // Reposiciona o índice inicial sempre que mudar a quantidade de clones
+  useEffect(() => {
+    setInstant(true);
+    setIndex(itemsPerPage);
+    const t = window.setTimeout(() => setInstant(false), 0);
+
+    return () => window.clearTimeout(t);
+  }, [itemsPerPage]);
+
+  const displayItems = useMemo(() => {
+    const clones = itemsPerPage;
+    if (carouselPhotos.length === 0) return [];
+
+    const head = carouselPhotos.slice(-clones);
+    const tail = carouselPhotos.slice(0, clones);
+
+    return [...head, ...carouselPhotos, ...tail];
+  }, [carouselPhotos, itemsPerPage]);
+
+  const canNavigate = carouselPhotos.length > itemsPerPage;
+
+  const next = () => {
+    if (!canNavigate) return;
+    setIndex((v) => v + 1);
   };
 
-  const prevSlide = () => {
-    setCurrentIndex((prev) =>
-      prev <= 0
-        ? images.length - itemsPerPage
-        : prev - 1
-    );
+  const prev = () => {
+    if (!canNavigate) return;
+    setIndex((v) => v - 1);
+  };
+
+  const handleAnimationComplete = () => {
+    const clones = itemsPerPage;
+    const realLen = carouselPhotos.length;
+
+    if (realLen === 0) return;
+
+    // Se entrou nos clones do final, volta instantaneamente pro começo real
+    if (index >= realLen + clones) {
+      setInstant(true);
+      setIndex(index - realLen);
+      window.setTimeout(() => setInstant(false), 0);
+      return;
+    }
+
+    // Se entrou nos clones do início, volta instantaneamente pro final real
+    if (index < clones) {
+      setInstant(true);
+      setIndex(index + realLen);
+      window.setTimeout(() => setInstant(false), 0);
+    }
   };
 
   return (
     <>
-      <div className="carousel-wrapper">
+      {/* CARROSSEL (somente poscloset1..poscloset6, looping real, sem nomes) */}
+      <div className="cases-carousel" aria-label="Carrossel de cases">
         <button
-          className="nav-btn prev"
-          onClick={prevSlide}
+          className="cases-nav-btn prev"
+          onClick={prev}
           type="button"
+          aria-label="Voltar"
+          disabled={!canNavigate}
         >
           ❮
         </button>
 
-        <div className="carousel-container">
+        <div className="cases-carousel-container">
           <motion.div
-            className="carousel-track"
-            animate={{
-              x: currentIndex * -(250 + 20),
-            }}
-            transition={{
-              type: 'spring',
-              stiffness: 300,
-              damping: 30,
-            }}
+            className="cases-carousel-track"
+            animate={{ x: -index * stepPx }}
+            transition={instant ? { duration: 0 } : { type: 'spring', stiffness: 280, damping: 30 }}
+            onAnimationComplete={handleAnimationComplete}
           >
-            {images.map((src, index) => (
-              <div
-                className="carousel-item"
-                key={index}
-                onClick={() => setSelectedImg(src)}
+            {displayItems.map((item, i) => (
+              <button
+                key={`${item.base}-${i}`}
+                className="cases-carousel-item"
+                type="button"
+                onClick={() => setSelectedMedia(item)}
+                aria-label="Abrir imagem do case"
               >
-                <img
-                  src={src}
-                  alt={`Case ${index + 1}`}
-                  loading="lazy"
-                />
-              </div>
+                <div className="cases-media">
+                  <img
+                    className="cases-media-el"
+                    src={item.src}
+                    alt="Case"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </div>
+              </button>
             ))}
           </motion.div>
         </div>
 
         <button
-          className="nav-btn next"
-          onClick={nextSlide}
+          className="cases-nav-btn next"
+          onClick={next}
           type="button"
+          aria-label="Avançar"
+          disabled={!canNavigate}
         >
           ❯
         </button>
       </div>
 
-      <Modal
-        image={selectedImg}
-        onClose={() => setSelectedImg(null)}
-      />
+      {/* EXTRAS (Vídeos + Bastidores lado a lado) */}
+      <div className="cases-extras">
+        <div className="cases-extras-col cases-extras-col--videos">
+          <h3 className="cases-subtitle">Vídeos</h3>
+          <MediaGrid items={videos} onSelect={setSelectedMedia} showCaptions={false} />
+        </div>
+
+        <div className="cases-extras-col cases-extras-col--bastidores">
+          <h3 className="cases-subtitle">Bastidores</h3>
+          <MediaGrid items={bastidoresItems} onSelect={setSelectedMedia} showCaptions={false} />
+        </div>
+      </div>
+
+      <Modal media={selectedMedia} onClose={() => setSelectedMedia(null)} />
     </>
   );
 }

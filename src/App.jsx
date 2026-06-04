@@ -7,6 +7,7 @@ import Projects from './components/Projects/Projects';
 import Carousel from './components/Carousel/Carousel';
 import Services from './components/Services/Services';
 import Footer from './components/Footer/Footer';
+import SmoothScroll from './components/SmoothScroll.jsx';
 
 import flores1 from './assets/imagens/flores1.png';
 import flores2 from './assets/imagens/flores2.png';
@@ -16,6 +17,7 @@ import fitas1 from './assets/imagens/fitas1.png';
 function App() {
   return (
     <div className="app-wrapper">
+      <SmoothScroll />
       <Navbar />
 
       <img
@@ -94,9 +96,7 @@ function App() {
           <Services />
         </div>
 
-        <div id="contato" className="anim-delay-6">
-          <Footer />
-        </div>
+        <Footer />
       </div>
     </div>
   );

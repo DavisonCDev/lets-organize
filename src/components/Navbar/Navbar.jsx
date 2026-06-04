@@ -1,28 +1,35 @@
-import { useState, useEffect } from 'react';
+import { useCallback, useEffect, useId, useRef, useState } from 'react';
+
+import { FaInstagram, FaWhatsapp } from 'react-icons/fa';
+
 import './Navbar.css';
 
 import logoIcon from '../../assets/imagens/icon2.png';
 
+const NAV_ITEMS = [
+  { id: 'sobre', label: 'Sobre Mim' },
+  { id: 'projetos', label: 'Projetos' },
+  { id: 'cases', label: 'Cases' },
+  { id: 'servicos', label: 'Serviços' },
+];
+
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
-  useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'auto';
-    }
+  const menuId = useId();
 
-    return () => {
-      document.body.style.overflow = 'auto';
-    };
-  }, [isOpen]);
+  const toggleButtonRef = useRef(null);
+  const firstLinkRef = useRef(null);
 
-  const toggleMenu = () => {
-    setIsOpen(!isOpen);
-  };
+  const toggleMenu = useCallback(() => {
+    setIsOpen((prev) => !prev);
+  }, []);
 
-  const scrollToSection = (e, id) => {
+  const closeMenu = useCallback(() => {
+    setIsOpen(false);
+  }, []);
+
+  const scrollToSection = useCallback((e, id) => {
     e.preventDefault();
 
     const element = document.getElementById(id);
@@ -34,12 +41,45 @@ export default function Navbar() {
       });
     }
 
-    setIsOpen(false);
-  };
+    closeMenu();
+  }, [closeMenu]);
+
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+
+    const focusTimer = window.setTimeout(() => {
+      firstLinkRef.current?.focus();
+    }, 0);
+
+    const onKeyDown = (event) => {
+      if (event.key === 'Escape') {
+        event.preventDefault();
+
+        closeMenu();
+
+        window.setTimeout(() => {
+          toggleButtonRef.current?.focus();
+        }, 0);
+      }
+    };
+
+    window.addEventListener('keydown', onKeyDown);
+
+    return () => {
+      window.clearTimeout(focusTimer);
+
+      document.body.style.overflow = previousOverflow || 'auto';
+
+      window.removeEventListener('keydown', onKeyDown);
+    };
+  }, [closeMenu, isOpen]);
 
   return (
     <>
-      <nav className="navbar">
+      <nav className="navbar" aria-label="Navegação principal">
         <div className="navbar-container">
           <div className="navbar-logo-wrapper">
             <img
@@ -50,63 +90,100 @@ export default function Navbar() {
             />
           </div>
 
-          <div
-            className={`menu-icon ${isOpen ? 'open' : ''}`}
-            onClick={toggleMenu}
-          >
-            <span></span>
-            <span></span>
-            <span></span>
+          {/* Desktop: links + bolinhas à direita do logo */}
+          <div className="navbar-right">
+            <ul className="nav-menu nav-menu--desktop">
+              {NAV_ITEMS.map((item) => (
+                <li className="nav-item" key={item.id}>
+                  <a
+                    href={`#${item.id}`}
+                    className="nav-links"
+                    onClick={(e) => scrollToSection(e, item.id)}
+                  >
+                    {item.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+
+            <div className="navbar-social" aria-label="Redes sociais">
+              <a
+                href="https://wa.me/5511985543513"
+                target="_blank"
+                rel="noreferrer"
+                className="social-bubble social-bubble--whatsapp"
+                aria-label="Chamar no WhatsApp"
+                title="WhatsApp"
+              >
+                <FaWhatsapp size={18} />
+              </a>
+
+              <a
+                href="https://www.instagram.com/letsorganiza/"
+                target="_blank"
+                rel="noreferrer"
+                className="social-bubble social-bubble--instagram"
+                aria-label="Abrir Instagram"
+                title="Instagram"
+              >
+                <FaInstagram size={18} />
+              </a>
+            </div>
           </div>
 
-          <ul className={`nav-menu ${isOpen ? 'active' : ''}`}>
-            <li className="nav-item">
-              <a
-                href="#sobre"
-                className="nav-links"
-                onClick={(e) => scrollToSection(e, 'sobre')}
-              >
-                Sobre Mim
-              </a>
-            </li>
+          {/* Mobile: hamburguer */}
+          <button
+            ref={toggleButtonRef}
+            className={`menu-icon ${isOpen ? 'open' : ''}`}
+            onClick={toggleMenu}
+            type="button"
+            aria-label={isOpen ? 'Fechar menu' : 'Abrir menu'}
+            aria-expanded={isOpen}
+            aria-controls={menuId}
+          >
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+          </button>
 
-            <li className="nav-item">
-              <a
-                href="#projetos"
-                className="nav-links"
-                onClick={(e) => scrollToSection(e, 'projetos')}
-              >
-                Projetos
-              </a>
-            </li>
+          {/* Mobile: menu overlay */}
+          <ul id={menuId} className={`nav-menu nav-menu--mobile ${isOpen ? 'active' : ''}`}>
+            {NAV_ITEMS.map((item, index) => (
+              <li className="nav-item" key={item.id}>
+                <a
+                  ref={index === 0 ? firstLinkRef : null}
+                  href={`#${item.id}`}
+                  className="nav-links"
+                  onClick={(e) => scrollToSection(e, item.id)}
+                >
+                  {item.label}
+                </a>
+              </li>
+            ))}
 
-            <li className="nav-item">
+            <li className="nav-item nav-social-mobile">
               <a
-                href="#cases"
-                className="nav-links"
-                onClick={(e) => scrollToSection(e, 'cases')}
+                href="https://wa.me/5511985543513"
+                target="_blank"
+                rel="noreferrer"
+                className="social-bubble social-bubble--whatsapp"
+                aria-label="Chamar no WhatsApp"
+                title="WhatsApp"
+                onClick={closeMenu}
               >
-                Cases
+                <FaWhatsapp size={18} />
               </a>
-            </li>
 
-            <li className="nav-item">
               <a
-                href="#servicos"
-                className="nav-links"
-                onClick={(e) => scrollToSection(e, 'servicos')}
+                href="https://www.instagram.com/letsorganiza/"
+                target="_blank"
+                rel="noreferrer"
+                className="social-bubble social-bubble--instagram"
+                aria-label="Abrir Instagram"
+                title="Instagram"
+                onClick={closeMenu}
               >
-                Serviços
-              </a>
-            </li>
-
-            <li className="nav-item">
-              <a
-                href="#contato"
-                className="nav-links"
-                onClick={(e) => scrollToSection(e, 'contato')}
-              >
-                Contato
+                <FaInstagram size={18} />
               </a>
             </li>
           </ul>
