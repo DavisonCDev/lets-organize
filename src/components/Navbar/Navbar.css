@@ -99,6 +99,11 @@
   gap: 10px;
 }
 
+/* por padrão (desktop), essa versão mobile fica escondida */
+.navbar-social--mobile {
+  display: none;
+}
+
 .social-bubble {
   width: 40px;
   height: 40px;
@@ -192,13 +197,6 @@
   display: none;
 }
 
-.nav-social-mobile {
-  margin-top: 18px;
-  display: flex;
-  gap: 12px;
-  justify-content: center;
-}
-
 @media (max-width: 768px) {
   .navbar-container {
     padding: 0 20px;
@@ -206,6 +204,17 @@
 
   .navbar-right {
     display: none; /* esconde links + bolinhas no desktop layout */
+  }
+
+  /* exibe as bolinhas no topo (fora do hambúrguer) */
+  .navbar-social--mobile {
+    display: flex;
+  }
+
+  /* um pouco menor no mobile para caber melhor */
+  .navbar-social--mobile .social-bubble {
+    width: 36px;
+    height: 36px;
   }
 
   .menu-icon {

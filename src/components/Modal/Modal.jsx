@@ -104,13 +104,10 @@ export default function Modal({ media, onClose }) {
             controls
             autoPlay
             playsInline
+            muted
           />
         ) : (
-          <img
-            className="modal-media"
-            src={media.src}
-            alt={media.title ?? 'Imagem ampliada'}
-          />
+          <img className="modal-media" src={media.src} alt={media.title ?? 'Imagem ampliada'} />
         )}
       </div>
     </div>,

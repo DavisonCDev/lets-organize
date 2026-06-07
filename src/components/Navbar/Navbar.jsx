@@ -29,20 +29,23 @@ export default function Navbar() {
     setIsOpen(false);
   }, []);
 
-  const scrollToSection = useCallback((e, id) => {
-    e.preventDefault();
+  const scrollToSection = useCallback(
+    (e, id) => {
+      e.preventDefault();
 
-    const element = document.getElementById(id);
+      const element = document.getElementById(id);
 
-    if (element) {
-      element.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start',
-      });
-    }
+      if (element) {
+        element.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start',
+        });
+      }
 
-    closeMenu();
-  }, [closeMenu]);
+      closeMenu();
+    },
+    [closeMenu]
+  );
 
   useEffect(() => {
     if (!isOpen) return;
@@ -131,6 +134,33 @@ export default function Navbar() {
             </div>
           </div>
 
+          {/* Mobile: bolinhas fora do hambúrguer (sempre visíveis no topo) */}
+          <div className="navbar-social navbar-social--mobile" aria-label="Redes sociais">
+            <a
+              href="https://wa.me/5511985543513"
+              target="_blank"
+              rel="noreferrer"
+              className="social-bubble social-bubble--whatsapp"
+              aria-label="Chamar no WhatsApp"
+              title="WhatsApp"
+              onClick={closeMenu}
+            >
+              <FaWhatsapp size={18} />
+            </a>
+
+            <a
+              href="https://www.instagram.com/letsorganiza/"
+              target="_blank"
+              rel="noreferrer"
+              className="social-bubble social-bubble--instagram"
+              aria-label="Abrir Instagram"
+              title="Instagram"
+              onClick={closeMenu}
+            >
+              <FaInstagram size={18} />
+            </a>
+          </div>
+
           {/* Mobile: hamburguer */}
           <button
             ref={toggleButtonRef}
@@ -160,32 +190,6 @@ export default function Navbar() {
                 </a>
               </li>
             ))}
-
-            <li className="nav-item nav-social-mobile">
-              <a
-                href="https://wa.me/5511985543513"
-                target="_blank"
-                rel="noreferrer"
-                className="social-bubble social-bubble--whatsapp"
-                aria-label="Chamar no WhatsApp"
-                title="WhatsApp"
-                onClick={closeMenu}
-              >
-                <FaWhatsapp size={18} />
-              </a>
-
-              <a
-                href="https://www.instagram.com/letsorganiza/"
-                target="_blank"
-                rel="noreferrer"
-                className="social-bubble social-bubble--instagram"
-                aria-label="Abrir Instagram"
-                title="Instagram"
-                onClick={closeMenu}
-              >
-                <FaInstagram size={18} />
-              </a>
-            </li>
           </ul>
         </div>
       </nav>
