@@ -1,5 +1,7 @@
 import './App.css';
 
+import { FaWhatsapp } from 'react-icons/fa';
+
 import Navbar from './components/Navbar/Navbar';
 import Header from './components/Header/Header';
 import About from './components/About/About';
@@ -14,9 +16,17 @@ import flores2 from './assets/imagens/flores2.png';
 import flores3 from './assets/imagens/flores3.png';
 import fitas1 from './assets/imagens/fitas1.png';
 
+const WHATSAPP_PHONE = '5511985543513';
+const WHATSAPP_TEXT = 'Olá Letícia! Vim pelo site e gostaria de mais informações.';
+const WHATSAPP_URL = `https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(WHATSAPP_TEXT)}`;
+
 function App() {
   return (
     <div className="app-wrapper">
+      <a className="skip-link" href="#inicio">
+        Pular para o conteúdo
+      </a>
+
       <SmoothScroll />
       <Navbar />
 
@@ -98,6 +108,17 @@ function App() {
 
         <Footer />
       </div>
+
+      <a
+        className="whatsapp-fab"
+        href={WHATSAPP_URL}
+        target="_blank"
+        rel="noreferrer"
+        aria-label="Chamar no WhatsApp"
+        title="WhatsApp"
+      >
+        <FaWhatsapp size={22} />
+      </a>
     </div>
   );
 }
