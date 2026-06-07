@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 
 import { motion } from 'framer-motion';
 
@@ -38,17 +38,31 @@ export default function Carousel() {
 
   const [selectedMedia, setSelectedMedia] = useState(null);
 
-  const [itemsPerPage, setItemsPerPage] = useState(3);
+  const [itemsPerPage, setItemsPerPage] = useState(() => (window.innerWidth <= 768 ? 1 : 3));
   const [stepPx, setStepPx] = useState(278); // fallback (260 + 18)
 
   // Loop infinito real (com clones)
-  const [index, setIndex] = useState(0);
+  const [index, setIndex] = useState(() => (window.innerWidth <= 768 ? 1 : 3));
   const [instant, setInstant] = useState(false);
+  const instantTimerRef = useRef(0);
 
   useEffect(() => {
     const handleResize = () => {
       const perPage = window.innerWidth <= 768 ? 1 : 3;
-      setItemsPerPage(perPage);
+
+      // Atualiza itemsPerPage e, se mudou, reposiciona o índice no MESMO fluxo
+      // (evita cascata de effects e o warning do React)
+      setItemsPerPage((prev) => {
+        if (prev === perPage) return prev;
+
+        setInstant(true);
+        setIndex(perPage);
+
+        window.clearTimeout(instantTimerRef.current);
+        instantTimerRef.current = window.setTimeout(() => setInstant(false), 0);
+
+        return perPage;
+      });
 
       const w = getCssNumberVar('--case-item-width', 260);
       const g = getCssNumberVar('--case-gap', 18);
@@ -58,17 +72,11 @@ export default function Carousel() {
     window.addEventListener('resize', handleResize);
     handleResize();
 
-    return () => window.removeEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      window.clearTimeout(instantTimerRef.current);
+    };
   }, []);
-
-  // Reposiciona o índice inicial sempre que mudar a quantidade de clones
-  useEffect(() => {
-    setInstant(true);
-    setIndex(itemsPerPage);
-    const t = window.setTimeout(() => setInstant(false), 0);
-
-    return () => window.clearTimeout(t);
-  }, [itemsPerPage]);
 
   const displayItems = useMemo(() => {
     const clones = itemsPerPage;
@@ -168,16 +176,18 @@ export default function Carousel() {
         </button>
       </div>
 
-      {/* EXTRAS (Vídeos + Bastidores lado a lado) */}
-      <div className="cases-extras">
-        <div className="cases-extras-col cases-extras-col--videos">
-          <h3 className="cases-subtitle">Vídeos</h3>
-          <MediaGrid items={videos} onSelect={setSelectedMedia} showCaptions={false} />
-        </div>
+      {/* BASTIDORES (Vídeos + Bastidores em uma única sessão) */}
+      <div className="bastidores-section" aria-label="Bastidores">
+        <h3 className="cases-subtitle">Bastidores</h3>
 
-        <div className="cases-extras-col cases-extras-col--bastidores">
-          <h3 className="cases-subtitle">Bastidores</h3>
-          <MediaGrid items={bastidoresItems} onSelect={setSelectedMedia} showCaptions={false} />
+        <div className="bastidores-grids">
+          <div className="bastidores-grid bastidores-grid--videos" aria-label="Vídeos">
+            <MediaGrid items={videos} onSelect={setSelectedMedia} showCaptions={false} />
+          </div>
+
+          <div className="bastidores-grid bastidores-grid--fotos" aria-label="Fotos dos bastidores">
+            <MediaGrid items={bastidoresItems} onSelect={setSelectedMedia} showCaptions={false} />
+          </div>
         </div>
       </div>
 

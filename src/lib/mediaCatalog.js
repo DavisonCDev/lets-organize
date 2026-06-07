@@ -149,11 +149,7 @@ function getCatalog() {
 export function getPortfolioSections() {
   const { images, videos } = getCatalog();
 
-  // Portfólio: incluir vídeos de categorias (ex.: biblioteca.mp4, toalhas.mp4, baby.mp4)
-  // Excluir:
-  // - fotos de Cases (poscloset*)
-  // - vídeos de Cases (em_acao*)
-  // - bastidores (vai ficar só em Cases, ao lado dos vídeos)
+
   const portfolioItems = [...images, ...videos].filter(
     (i) =>
       i.categoryKey !== 'cases_photos' &&
