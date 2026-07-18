@@ -46,16 +46,16 @@ function titleFromBase(base) {
 }
 
 const CATEGORY_META = {
-  baby: { title: 'Organização Baby', order: 10 },
-  closet: { title: 'Organização de Closet', order: 20 },
+  baby: { title: 'Organização Baby', subtitle: 'Assistência', order: 10 },
+  closet: { title: 'Organização de Closet', subtitle: 'Assistência', order: 20 },
   closet_before_after: { title: 'Antes e Depois — Closet', order: 30 },
-  cozinha: { title: 'Organização de Cozinha', order: 40 },
-  biblioteca: { title: 'Organização de Biblioteca', order: 50 },
-  lavanderia: { title: 'Organização de Lavanderia', order: 60 },
+  cozinha: { title: 'Organização de Cozinha', subtitle: 'Assistência', order: 40 },
+  biblioteca: { title: 'Organização de Biblioteca', subtitle: 'Assistência', order: 50 },
+  lavanderia: { title: 'Organização de Lavanderia', subtitle: 'Assistência', order: 60 },
   rouparia: { title: 'Organização de Rouparia', subtitle: 'Assistência', order: 70 },
-  toalhas: { title: 'Organização de Toalhas', order: 80 },
+  toalhas: { title: 'Organização de Toalhas', subtitle: 'Assistência', order: 80 },
   uniformes: { title: 'Organização de Uniformes', subtitle: 'Assistência', order: 90 },
-  acessorios: { title: 'Organização de Acessórios', order: 100 },
+ acessorios: { title: 'Organização de Acessórios', subtitle: 'Assistência', order: 100 },
   bastidores: { title: 'Bastidores', order: 9999 }, // no final (mas vamos ocultar no Portfólio)
   outros: { title: 'Outros', order: 99999 },
 };
