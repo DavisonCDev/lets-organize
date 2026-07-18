@@ -52,9 +52,9 @@ const CATEGORY_META = {
   cozinha: { title: 'Organização de Cozinha', order: 40 },
   biblioteca: { title: 'Organização de Biblioteca', order: 50 },
   lavanderia: { title: 'Organização de Lavanderia', order: 60 },
-  rouparia: { title: 'Organização de Rouparia', order: 70 },
+  rouparia: { title: 'Organização de Rouparia', subtitle: 'Assistência', order: 70 },
   toalhas: { title: 'Organização de Toalhas', order: 80 },
-  uniformes: { title: 'Organização de Uniformes', order: 90 },
+  uniformes: { title: 'Organização de Uniformes', subtitle: 'Assistência', order: 90 },
   acessorios: { title: 'Organização de Acessórios', order: 100 },
   bastidores: { title: 'Bastidores', order: 9999 }, // no final (mas vamos ocultar no Portfólio)
   outros: { title: 'Outros', order: 99999 },
@@ -163,6 +163,7 @@ export function getPortfolioSections() {
     .map(([key, sectionItems]) => ({
       key,
       title: CATEGORY_META[key]?.title ?? key,
+      subtitle: CATEGORY_META[key]?.subtitle ?? '',
       order: CATEGORY_META[key]?.order ?? 500,
       items: sectionItems,
     }))

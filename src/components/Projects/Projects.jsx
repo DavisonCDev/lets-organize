@@ -7,10 +7,14 @@ import Modal from '../Modal/Modal';
 
 import { getPortfolioSections } from '../../lib/mediaCatalog';
 
-function Section({ title, items, onSelect }) {
+function Section({ title, subtitle, items, onSelect }) {
   return (
     <section className="section section-box portfolio-section">
-      <h2>{title}</h2>
+      <div className="portfolio-section-heading">
+        <h2>{title}</h2>
+        {subtitle ? <small className="portfolio-section-subtitle">{subtitle}</small> : null}
+      </div>
+
       <MediaGrid items={items} onSelect={onSelect} />
     </section>
   );
@@ -53,6 +57,7 @@ export default function Projects() {
         <Section
           key={section.key}
           title={section.title}
+          subtitle={section.subtitle}
           items={section.items}
           onSelect={setSelectedMedia}
         />
@@ -63,6 +68,7 @@ export default function Projects() {
           {lavanderia && (
             <Section
               title={lavanderia.title}
+              subtitle={lavanderia.subtitle}
               items={lavanderia.items}
               onSelect={setSelectedMedia}
             />
@@ -70,6 +76,7 @@ export default function Projects() {
           {rouparia && (
             <Section
               title={rouparia.title}
+              subtitle={rouparia.subtitle}
               items={rouparia.items}
               onSelect={setSelectedMedia}
             />
@@ -82,6 +89,7 @@ export default function Projects() {
           {uniformes && (
             <Section
               title={uniformes.title}
+              subtitle={uniformes.subtitle}
               items={uniformes.items}
               onSelect={setSelectedMedia}
             />
@@ -89,6 +97,7 @@ export default function Projects() {
           {acessorios && (
             <Section
               title={acessorios.title}
+              subtitle={acessorios.subtitle}
               items={acessorios.items}
               onSelect={setSelectedMedia}
             />
