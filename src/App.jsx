@@ -98,7 +98,11 @@ function App() {
         </div>
 
         <div id="cases" className="section section-box anim-delay-4">
-          <h2>Cases</h2>
+          <div className="cases-section-heading">
+            <h2>Cases</h2>
+            <small className="cases-section-subtitle">Projetos Autorais</small>
+          </div>
+
           <Carousel />
         </div>
 
