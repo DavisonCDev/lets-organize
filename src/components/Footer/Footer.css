@@ -3,6 +3,13 @@
   text-align: center;
 }
 
+.footer-cnpj {
+  font-size: 0.85rem;
+  opacity: 0.6;
+  letter-spacing: 0.5px;
+  margin-bottom: 6px;
+}
+
 .developer-credit {
   font-size: 0.85rem;
   opacity: 0.6;
