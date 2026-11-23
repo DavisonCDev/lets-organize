@@ -7,7 +7,7 @@ export default function Footer() {
         Lets Organiza • CNPJ 49.310.241/0001-26
       </div>
       <div className="developer-credit">
-        Developed by OK Smart
+        © 2026 • Developed by OK Smart
       </div>
     </footer>
   );
