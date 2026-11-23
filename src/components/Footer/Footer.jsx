@@ -1,5 +1,10 @@
 import './Footer.css';
 
+const foundingYear = 2026;
+const currentYear = new Date().getFullYear();
+const siteYears =
+  currentYear > foundingYear ? `${foundingYear} - ${currentYear}` : `${foundingYear}`;
+
 export default function Footer() {
   return (
     <footer className="site-footer" aria-label="Rodapé">
@@ -7,7 +12,7 @@ export default function Footer() {
         Lets Organiza • CNPJ 49.310.241/0001-26
       </div>
       <div className="developer-credit">
-        © 2026 • Developed by OK Smart
+        © {siteYears} Lets Organiza • Developed by OK Smart
       </div>
     </footer>
   );
